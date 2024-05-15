@@ -1,0 +1,73 @@
+﻿@model BookMe.Models.LivreThemeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Hero section -->
+<div class="jumbotron jumbotron-fluid bg-light">
+    <div class="container text-center">
+        <h1 class="display-4">Welcome to BookMe</h1>
+        <p class="lead">Explore our diverse collection of books!</p>
+    </div>
+</div>
+
+<!-- Search form -->
+<div class="container my-4">
+    <form asp-controller="Home" asp-action="Index" method="get">
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <label for="LivreName" class="col-form-label">Nom de livre</label>
+                <input type="text" id="LivreName" name="LivreName" class="form-control" />
+            </div>
+            <div class="col-sm-4">
+                <label for="AuteurName" class="col-form-label">Auteur</label>
+                <input type="text" id="AuteurName" name="AuteurName" class="form-control" />
+            </div>
+            <div class="col-sm-4">
+                <label for="ThemeLibelle" class="col-form-label">Thème</label>
+                <input type="text" id="ThemeLibelle" name="ThemeLibelle" class="form-control" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Rechercher</button>
+    </form>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.AuteurName) || !string.IsNullOrEmpty(Model.ThemeLibelle) || !string.IsNullOrEmpty(Model.LivreName))
+{
+    <h2 class="text-center mb-4">Résultats de la recherche</h2>
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var livre in Model.Livres)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow">
+                    <img class="card-img-top" src="@livre.ImagePath" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@livre.Name</h5>
+                        <p class="card-text">@livre.Description</p>
+                        <p>
+                            Auteur :
+                            @foreach (var auteur in livre.AuteurLivres.Select(al => al.Auteur))
+                            {
+                                @auteur.Name
+                            }
+                        </p>
+                        <p>
+                            Theme :
+                            @foreach (var theme in livre.LivreThemes.Select(lt => lt.Theme))
+                            {
+                                @theme.Libelle
+                            }
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="@Url.Action("Details", "Livres", new { id = livre.LivreId })" class="btn btn-primary btn-block">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

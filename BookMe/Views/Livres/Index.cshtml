@@ -1,0 +1,86 @@
+﻿@model IEnumerable<BookMe.Models.Livre>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_Notifications" />
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Livres List</h2>
+        </div>
+        <div class="col-6 text-end"> <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i>&nbsp;Create New</a></div>
+    </div>
+    <br /><br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Language)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.pagesNumbers)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    Auteurs
+                </th>
+                <th>
+                    Themes
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Language)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pagesNumbers)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImagePath)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @foreach (var author in item.AuteurLivres)
+                        {
+                            @Html.DisplayFor(modelItem => author.Auteur.Name) <br />
+                        }
+                    </td>
+                    <td>
+                        @foreach (var theme in item.LivreThemes)
+                        {
+                            @Html.DisplayFor(modelItem => theme.Theme.Libelle) <br />
+                        }
+                    </td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a class="btn btn-primary mx-2" asp-action="Edit" asp-route-id="@item.LivreId"><i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                            <a class="btn btn-outline-primary mx-2" asp-action="Details" asp-route-id="@item.LivreId"><i class="bi bi-arrow-through-heart"></i>&nbsp;Details</a>
+                            <a class="btn btn-danger mx-2" asp-action="Delete" asp-route-id="@item.LivreId"><i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

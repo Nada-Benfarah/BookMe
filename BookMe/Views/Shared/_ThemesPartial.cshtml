@@ -1,0 +1,11 @@
+﻿@model IEnumerable<BookMe.Models.Theme>
+
+<div class="list-group">
+    @if (Model != null)
+    {
+        foreach (var theme in Model)
+        {
+            <a href="@Url.Action("Index", "Livres", new { themeId = theme.ThemeId })" class="list-group-item list-group-item-action">@theme.Libelle</a>
+        }
+    }
+</div>

@@ -1,0 +1,60 @@
+﻿@model LivreCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<form method="post" asp-action="Create">
+    <div class="border pt-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create Livre</h2>
+
+            <hr />
+            <br />
+            <br />
+            @*            <div asp-validation-summary="All" class="text-danger"></div>*@
+            <div class="mb-3">
+                <label asp-for="Livre.Name" class="control-label"></label>
+                <input asp-for="Livre.Name" class="form-control" />
+                <span asp-validation-for="Livre.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Livre.Language" class="control-label"></label>
+                <input asp-for="Livre.Language" class="form-control" />
+                <span asp-validation-for="Livre.Language" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Livre.pagesNumbers" class="control-label"></label>
+                <input asp-for="Livre.pagesNumbers" class="form-control" />
+                <span asp-validation-for="Livre.pagesNumbers" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Livre.ImagePath" class="control-label"></label>
+                <input asp-for="Livre.ImagePath" class="form-control" />
+                <span asp-validation-for="Livre.ImagePath" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Livre.Description" class="control-label"></label>
+                <input asp-for="Livre.Description" class="form-control" />
+                <span asp-validation-for="Livre.Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="control-label">Auteurs</label>
+                <select asp-for="SelectedAuteurIds" asp-items="ViewBag.Auteurs" class="form-control" multiple></select>
+            </div>
+            <div class="mb-3">
+                <label class="control-label">Themes</label>
+                <select asp-for="SelectedThemesIds" asp-items="ViewBag.Themes" class="form-control" multiple></select>
+            </div>
+            <div class="mb-3">
+                <button type="submit" value="Create" class="btn btn-primary" style="width:150px">Create</button>
+                <a asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
